@@ -2,9 +2,7 @@ package org.example.dao;
 
 import org.example.model.Book;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +37,25 @@ public class BookDAO {
         }
 
         return books;
+    }
+
+    public void saveAll(List<Book> books) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
+            for (Book book : books) {
+                writer.write(String.format("Title: %s; Author: %s; Genre: %s; Publisher: %s; Edition: %d; Number of Pages: %d; ISBN-13: %s",
+                        book.getTitle(),
+                        book.getAuthor(),
+                        book.getGenre(),
+                        book.getPublisher(),
+                        book.getEdition(),
+                        book.getNumberOfPages(),
+                        book.getIsbn13()
+                ));
+
+                writer.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving data: " + e.getMessage());
+        }
     }
 }
