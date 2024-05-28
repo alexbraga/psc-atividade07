@@ -18,14 +18,14 @@ public class BookDAO {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] bookData = line.split(", ");
+                String[] bookData = line.split("; ");
 
                 if (bookData.length == 7) {
                     Book book = new Book(
-                            bookData[0].split(": ")[1],
+                            bookData[0].split(": ", 2)[1],
                             bookData[1].split(": ")[1],
                             bookData[2].split(": ")[1],
-                            bookData[3].split(": ")[1],
+                            bookData[3].split(": ", 2)[1],
                             Integer.parseInt(bookData[4].split(": ")[1]),
                             Integer.parseInt(bookData[5].split(": ")[1]),
                             bookData[6].split(": ")[1]
