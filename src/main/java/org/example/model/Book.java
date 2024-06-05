@@ -82,4 +82,17 @@ public class Book {
     public void setEdition(int edition) {
         this.edition = edition;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Title: %s; Author: %s; Genre: %s; Publisher: %s; Edition: %d; Number of Pages: %d; ISBN-13: %s",
+                this.getTitle(),
+                this.getAuthor(),
+                this.getGenre(),
+                this.getPublisher(),
+                this.getEdition(),
+                this.getNumberOfPages(),
+                this.getIsbn13()
+        );
+    }
 }
