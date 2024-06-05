@@ -8,11 +8,11 @@ public class IndexService {
     private static IndexService instance;
     private final Map<String, List<Book>> INDEX;
     private static final List<String> ENGLISH_STOP_WORDS = Arrays.asList(
-            "a", "about", "among", "an", "and", "at", "but", "for", "from", "i", "in", "into", "is", "it", "me", "of",
-            "on", "or", "that", "the", "these", "this", "those", "throughout", "to", "towards", "until", "upon", "with", "&"
+            "about", "among", "an", "and", "at", "but", "for", "from", "in", "into", "is", "it", "me", "of",
+            "on", "or", "that", "the", "these", "this", "those", "throughout", "to", "towards", "until", "upon", "with"
     );
     private static final List<String> PORTUGUESE_STOP_WORDS = Arrays.asList(
-            "acerca", "até", "com", "da", "de", "do", "e", "em", "entre", "eu", "mas", "na", "no", "ou", "para", "que", "sobre", "&"
+            "acerca", "até", "com", "da", "de", "do", "em", "entre", "eu", "mas", "na", "no", "ou", "para", "que", "sobre"
     );
 
     private IndexService() {
@@ -25,6 +25,10 @@ public class IndexService {
         }
 
         return instance;
+    }
+
+    public Map<String, List<Book>> getINDEX() {
+        return INDEX;
     }
 
     public void addToIndex(Book book) {
@@ -57,7 +61,29 @@ public class IndexService {
         }
     }
 
-    public Map<String, List<Book>> getINDEX() {
-        return INDEX;
+    public List<Book> searchIndex(String searchQuery) {
+        String[] searchTerms = searchQuery.toLowerCase().split("\\s+");
+        Map<Book, Integer> bookCounts = new HashMap<>();
+
+        for (String term : searchTerms) {
+            List<Book> bookList = INDEX.get(term);
+
+            if (bookList != null) {
+                for (Book book : bookList) {
+                    bookCounts.put(book, bookCounts.getOrDefault(book, 0) + 1);
+                }
+            }
+        }
+
+        List<Map.Entry<Book, Integer>> entries = new ArrayList<>(bookCounts.entrySet());
+        entries.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+        List<Book> sortedBooks = new ArrayList<>();
+
+        for (Map.Entry<Book, Integer> entry : entries) {
+            sortedBooks.add(entry.getKey());
+        }
+
+        return sortedBooks;
     }
 }
