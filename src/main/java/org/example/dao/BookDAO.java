@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.model.Book;
+import org.example.service.IndexService;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class BookDAO {
                     );
 
                     books.add(book);
+                    IndexService index = IndexService.getInstance();
+                    index.addToIndex(book);
                 }
             }
         } catch (IOException e) {
