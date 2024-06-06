@@ -86,4 +86,14 @@ public class IndexService {
 
         return sortedBooks;
     }
+
+    public Optional<Book> findByISBN(String isbn) {
+        List<Book> books = INDEX.get(isbn);
+
+        if (books == null || books.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(books.get(0));
+        }
+    }
 }
