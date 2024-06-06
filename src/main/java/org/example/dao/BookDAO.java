@@ -10,7 +10,7 @@ public class BookDAO {
     private static final String FILE_NAME = "books.txt";
 
     public List<Book> findAll() {
-        List<Book> books = new ArrayList<>();
+        List<Book> bookList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
@@ -29,14 +29,14 @@ public class BookDAO {
                             bookData[6].split(": ")[1]
                     );
 
-                    books.add(book);
+                    bookList.add(book);
                 }
             }
         } catch (IOException e) {
             System.err.println("Error loading data: " + e.getMessage());
         }
 
-        return books;
+        return bookList;
     }
 
     public void saveAll(List<Book> bookList) {
