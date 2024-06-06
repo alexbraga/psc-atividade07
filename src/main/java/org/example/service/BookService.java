@@ -34,12 +34,33 @@ public class BookService {
     }
 
     public List<Book> findBooks(String searchQuery) {
-        IndexService indexService = IndexService.getInstance();
-        return indexService.searchIndex(searchQuery);
+        IndexService index = IndexService.getInstance();
+        return index.searchIndex(searchQuery);
     }
 
     public Optional<Book> findByISBN(String isbn) {
-        IndexService indexService = IndexService.getInstance();
-        return indexService.findByISBN(isbn);
+        IndexService index = IndexService.getInstance();
+        return index.findByISBN(isbn);
+    }
+
+    public Book update(String isbn, Book updatedBook) {
+        Optional<Book> bookOptional = findByISBN(isbn);
+        List<Book> bookList = BOOK_DAO.findAll();
+
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            int bookIndex = bookList.indexOf(book);
+            bookList.set(bookIndex, updatedBook);
+
+            BOOK_DAO.saveAll(bookList);
+
+            IndexService index = IndexService.getInstance();
+            index.removeFromIndex(book);
+            index.addToIndex(updatedBook);
+
+            return updatedBook;
+        } else {
+            throw new BookNotFoundException("Book not found");
+        }
     }
 }

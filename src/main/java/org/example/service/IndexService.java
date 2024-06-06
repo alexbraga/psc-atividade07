@@ -96,4 +96,10 @@ public class IndexService {
             return Optional.of(books.get(0));
         }
     }
+
+    public void removeFromIndex(Book book) {
+        for (Map.Entry<String, List<Book>> entry : INDEX.entrySet()) {
+            entry.getValue().remove(book);
+        }
+    }
 }

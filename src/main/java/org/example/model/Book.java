@@ -84,6 +84,18 @@ public class Book {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Book book = (Book) obj;
+        return isbn13.equals(book.isbn13);
+    }
+
+    @Override
     public String toString() {
         return String.format("Title: %s; Author: %s; Genre: %s; Publisher: %s; Edition: %d; Number of Pages: %d; ISBN-13: %s",
                 this.getTitle(),
