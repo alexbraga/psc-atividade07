@@ -15,6 +15,10 @@ public class BookService {
         this.BOOK_LIST = BOOK_DAO.findAll();
     }
 
+    public List<Book> getBOOK_LIST() {
+        return BOOK_LIST;
+    }
+
     public List<Book> findAllAndIndex() {
         for (Book book : BOOK_LIST) {
             IndexService index = IndexService.getInstance();
