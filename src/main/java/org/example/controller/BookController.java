@@ -31,4 +31,19 @@ public class BookController {
     public List<Book> findBooks(String searchQuery) throws BookNotFoundException {
         return bookService.findBooks(searchQuery);
     }
+
+    public Book updateBook(String isbn, Book updatedBook) throws BookNotFoundException {
+        if (isbn == null || updatedBook == null || updatedBook.getIsbn13().isEmpty()) {
+            throw new IllegalArgumentException("Book or ISBN-13 cannot be null or empty");
+        }
+
+        isbn = isbn.replaceAll("[^0-9]", "");
+        String updatedBookIsbn = updatedBook.getIsbn13().replaceAll("[^0-9]", "");
+
+        if (isbn.length() != 13 || updatedBookIsbn.length() != 13) {
+            throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
+        }
+
+        return bookService.update(isbn, updatedBook);
+    }
 }
