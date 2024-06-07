@@ -14,6 +14,7 @@ public class BookService {
     public BookService(BookDAO bookDAO) {
         this.BOOK_DAO = bookDAO;
         this.BOOK_LIST = BOOK_DAO.findAll();
+        findAllAndIndex();
     }
 
     public List<Book> getBOOK_LIST() {
