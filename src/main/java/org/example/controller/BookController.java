@@ -14,7 +14,13 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    public Book saveBook(Book book) throws BookAlreadyExistsException {
+    public Book saveBook(Book book) throws BookAlreadyExistsException, BookNotFoundException {
+        if (book == null || book.getIsbn13() == null || book.getIsbn13().isEmpty()) {
+            throw new IllegalArgumentException("Book or ISBN-13 cannot be null or empty");
+        } else if (book.getIsbn13().length() != 13) {
+            throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
+        }
+
         return bookService.saveBook(book);
     }
 

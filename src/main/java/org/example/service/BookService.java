@@ -31,7 +31,7 @@ public class BookService {
         return BOOK_LIST;
     }
 
-    public Book saveBook(Book book) throws BookAlreadyExistsException {
+    public Book saveBook(Book book) throws BookAlreadyExistsException, BookNotFoundException {
         if (findByISBN(book.getIsbn13()).isPresent()) {
             throw new BookAlreadyExistsException("Conflict: ISBN already in use!");
         }
@@ -70,12 +70,18 @@ public class BookService {
         return foundBooks;
     }
 
-    public Optional<Book> findByISBN(String isbn) {
+    public Optional<Book> findByISBN(String isbn) throws BookNotFoundException {
         IndexService index = IndexService.getInstance();
-        return index.findByISBN(isbn);
+        Optional<Book> foundBook = index.findByISBN(isbn);
+
+        if (foundBook.isEmpty()) {
+            throw new BookNotFoundException("The search for ISBN '" + isbn + "' did not match any books. Try checking for typos");
+        }
+
+        return foundBook;
     }
 
-    public Book update(String isbn, Book updatedBook) {
+    public Book update(String isbn, Book updatedBook) throws BookNotFoundException {
         Optional<Book> bookOptional = findByISBN(isbn);
 
         if (bookOptional.isPresent()) {
@@ -95,7 +101,7 @@ public class BookService {
         }
     }
 
-    public void delete(String isbn) {
+    public void delete(String isbn) throws BookNotFoundException {
         Optional<Book> bookOptional = findByISBN(isbn);
 
         if (bookOptional.isPresent()) {
@@ -110,7 +116,7 @@ public class BookService {
 
             System.out.println("Book deleted successfully");
         } else {
-            System.out.println("Book not found");
+            throw new BookNotFoundException("Book not found");
         }
     }
 }
