@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.exception.BookAlreadyExistsException;
+import org.example.exception.BookNotFoundException;
 import org.example.model.Book;
 import org.example.service.BookService;
 
@@ -25,7 +26,11 @@ public class BookController {
         return book;
     }
 
-    public List<Book> getAll() {
+    public List<Book> getAll() throws BookNotFoundException {
+        if (bookService.getBOOK_LIST().isEmpty()) {
+            throw new BookNotFoundException("The 'books.txt' file is empty");
+        }
+
         return bookService.getBOOK_LIST();
     }
 }
