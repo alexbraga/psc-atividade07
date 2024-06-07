@@ -24,4 +24,8 @@ public class BookController {
 
         return book;
     }
+
+    public List<Book> getAll() {
+        return bookService.getBOOK_LIST();
+    }
 }
