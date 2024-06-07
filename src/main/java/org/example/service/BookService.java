@@ -59,9 +59,15 @@ public class BookService {
         return BOOK_LIST;
     }
 
-    public List<Book> findBooks(String searchQuery) {
+    public List<Book> findBooks(String searchQuery) throws BookNotFoundException {
         IndexService index = IndexService.getInstance();
-        return index.searchIndex(searchQuery);
+        List<Book> foundBooks = index.searchIndex(searchQuery);
+
+        if (foundBooks.isEmpty()) {
+            throw new BookNotFoundException("Your search for '" + searchQuery + "' did not match any books. Try checking your spelling");
+        }
+
+        return foundBooks;
     }
 
     public Optional<Book> findByISBN(String isbn) {

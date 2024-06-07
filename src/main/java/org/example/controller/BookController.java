@@ -21,4 +21,8 @@ public class BookController {
     public List<Book> getAll() throws BookNotFoundException {
         return bookService.getAll();
     }
+
+    public List<Book> findBooks(String searchQuery) throws BookNotFoundException {
+        return bookService.findBooks(searchQuery);
+    }
 }
