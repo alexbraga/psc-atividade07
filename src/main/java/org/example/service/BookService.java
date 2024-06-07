@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.dao.BookDAO;
+import org.example.exception.BookAlreadyExistsException;
 import org.example.exception.BookNotFoundException;
 import org.example.model.Book;
 
@@ -30,6 +31,17 @@ public class BookService {
         return BOOK_LIST;
     }
 
+    public Book saveBook(Book book) throws BookAlreadyExistsException {
+        if (findByISBN(book.getIsbn13()).isPresent()) {
+            throw new BookAlreadyExistsException("Conflict: ISBN already in use!");
+        }
+
+        BOOK_LIST.add(book);
+        saveAllAndIndex(BOOK_LIST);
+
+        return book;
+    }
+
     public void saveAllAndIndex(List<Book> bookList) {
         BOOK_DAO.saveAll(bookList);
 
@@ -37,6 +49,14 @@ public class BookService {
             IndexService index = IndexService.getInstance();
             index.addToIndex(book);
         }
+    }
+
+    public List<Book> getAll() throws BookNotFoundException {
+        if (BOOK_LIST.isEmpty()) {
+            throw new BookNotFoundException("The 'books.txt' file is empty");
+        }
+
+        return BOOK_LIST;
     }
 
     public List<Book> findBooks(String searchQuery) {

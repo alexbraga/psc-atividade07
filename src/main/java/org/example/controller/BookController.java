@@ -15,22 +15,10 @@ public class BookController {
     }
 
     public Book saveBook(Book book) throws BookAlreadyExistsException {
-        if (bookService.findByISBN(book.getIsbn13()).isPresent()) {
-            throw new BookAlreadyExistsException("Conflict: ISBN already in use!");
-        }
-
-        List<Book> bookList = bookService.getBOOK_LIST();
-        bookList.add(book);
-        bookService.saveAllAndIndex(bookList);
-
-        return book;
+        return bookService.saveBook(book);
     }
 
     public List<Book> getAll() throws BookNotFoundException {
-        if (bookService.getBOOK_LIST().isEmpty()) {
-            throw new BookNotFoundException("The 'books.txt' file is empty");
-        }
-
-        return bookService.getBOOK_LIST();
+        return bookService.getAll();
     }
 }
