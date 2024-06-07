@@ -46,4 +46,18 @@ public class BookController {
 
         return bookService.update(isbn, updatedBook);
     }
+
+    public void deleteBook(String isbn) throws BookNotFoundException {
+        if (isbn == null) {
+            throw new IllegalArgumentException("ISBN-13 cannot be null or empty");
+        }
+
+        isbn = isbn.replaceAll("[^0-9]", "");
+
+        if (isbn.length() != 13) {
+            throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
+        }
+
+        bookService.delete(isbn);
+    }
 }
