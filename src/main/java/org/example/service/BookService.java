@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.dao.BookDAO;
+import org.example.exception.BookNotFoundException;
 import org.example.model.Book;
 
 import java.util.List;
