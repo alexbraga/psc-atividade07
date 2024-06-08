@@ -29,8 +29,7 @@ public class ConsoleInterface {
             System.out.println("\t6. Exit");
             System.out.print("\nPlease, insert the desired option [1-6]: ");
 
-            option = SCANNER.nextInt();
-            SCANNER.nextLine();
+            option = Integer.parseInt(SCANNER.nextLine());
 
             switch (option) {
                 case 1:
@@ -89,18 +88,17 @@ public class ConsoleInterface {
             String publisher = SCANNER.nextLine();
 
             System.out.print("Edition: ");
-            int edition = SCANNER.nextInt();
-            SCANNER.nextLine();
+            int edition = Integer.parseInt(SCANNER.nextLine());
 
             System.out.print("Number Of Pages: ");
-            int numOfPages = SCANNER.nextInt();
-            SCANNER.nextLine();
+            int numOfPages = Integer.parseInt(SCANNER.nextLine());
 
             System.out.print("ISBN-13: ");
             String isbn = SCANNER.nextLine();
 
             Book newBook = new Book(title, author, genre, publisher, edition, numOfPages, isbn);
-            System.out.println("\nBook successfully added: " + CONTROLLER.saveBook(newBook) + "\n");
+            System.out.println("\nBook successfully added:");
+            System.out.println(CONTROLLER.saveBook(newBook) + "\n");
         } catch (BookAlreadyExistsException | BookNotFoundException e) {
             System.out.println("\nError: " + e.getMessage() + "\n");
         }
@@ -177,7 +175,8 @@ public class ConsoleInterface {
                     }
 
                     Book updatedBook = CONTROLLER.updateBook(isbn, existingBook);
-                    System.out.println("\nBook updated successfully: " + updatedBook + "\n");
+                    System.out.println("\nBook updated successfully:");
+                    System.out.println(updatedBook + "\n");
                 } else if (answer.equalsIgnoreCase("n")) {
                     System.out.println();
                     mainMenu();
