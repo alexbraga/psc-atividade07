@@ -107,8 +107,7 @@ public class BookService {
 
         if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
-            int bookIndex = BOOK_LIST.indexOf(book);
-            BOOK_LIST.remove(bookIndex);
+            BOOK_LIST.remove(book);
 
             BOOK_DAO.saveAll(BOOK_LIST);
 
