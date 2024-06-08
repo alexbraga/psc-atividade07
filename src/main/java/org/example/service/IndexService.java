@@ -32,21 +32,21 @@ public class IndexService {
     }
 
     public void addToIndex(Book book) {
-        // Split the title, author and publisher into individual words
+        // Split the title, author, publisher and genre into individual words
         String[] titleWords = book.getTitle().toLowerCase().split("\\s+");
         String[] authorWords = book.getAuthor().toLowerCase().split("\\s+");
         String[] publisherWords = book.getPublisher().toLowerCase().split("\\s+");
+        String[] genreWords = book.getGenre().toLowerCase().split("\\s+");
 
-        // Index the book by each word in its title, author's name and publisher
+        // Index the book by each word in its title, author's name, publisher and genre
         indexBookByWords(book, titleWords);
         indexBookByWords(book, authorWords);
         indexBookByWords(book, publisherWords);
+        indexBookByWords(book, genreWords);
 
-        String genre = book.getGenre().toLowerCase();
         String isbn = book.getIsbn13().toLowerCase();
 
-        // If the genre/isbn isn't already indexed, create new ArrayList and add the related book, otherwise just add the book
-        INDEX.computeIfAbsent(genre, k -> new ArrayList<>()).add(book);
+        // If the ISBN isn't already indexed, create new ArrayList and add the related book, otherwise just add the book
         INDEX.computeIfAbsent(isbn, k -> new ArrayList<>()).add(book);
     }
 
