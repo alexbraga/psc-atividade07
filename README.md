@@ -7,16 +7,40 @@
 </h3>
 
 <p align="center">
-  <a href="https://github.com/alexbraga/psc-atividade05/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/alexbraga/psc-atividade07"></a>
+  <a href="https://github.com/alexbraga/psc-atividade07/commits/master"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/alexbraga/psc-atividade07"></a>
 </p>
 
 <h4 align="center">
 	 Status: Concluído
 </h4>
 
+<p align="center">
+ <a href="#sobre">Sobre</a> •
+ <a href="#características-técnicas">Características Técnicas</a> •
+ <a href="#instruções">Instruções</a> •
+ <a href="#critérios-de-avaliação">Critérios de Avaliação</a> •
+ <a href="#unidade-curricular">Unidade Curricular</a> •
+ <a href="#autor">Autor</a>
+</p>
+
 ## Sobre
 
-<p align="justify">Este exercício tem como objetivo desenvolver as habilidades em programação Java, especificamente na criação de um programa do tipo console com um menu baseado em números e operações CRUD (Create, Read, Update, Delete). Além disso, será praticada a persistência de dados em um arquivo de texto.</p>
+<p align="justify">Esta atividade tem como objetivo desenvolver as habilidades em programação Java, especificamente na criação de um programa do tipo console com um menu baseado em números e operações CRUD (Create, Read, Update, Delete). Além disso, será praticada a persistência de dados em um arquivo de texto.
+
+A entidade escolhida para ser modelada foi um livro, incluindo um registro completo com título, autor, gênero, editora, edição, número de páginas e ISBN-13.</p>
+
+---
+
+## Características Técnicas
+
+A presente aplicação implementa os seguintes padrões de projeto e arquitetura:
+
+- MVC (Model-View-Controller)
+- Singleton
+- DAO (Data Access Object)
+- Service Layer
+
+O SRP (Princípio da Responsabilidade Única) foi fortemente seguido em toda a aplicação.
 
 ---
 
