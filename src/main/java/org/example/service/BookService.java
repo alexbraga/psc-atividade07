@@ -18,13 +18,11 @@ public class BookService {
         findAllAndIndex();
     }
 
-    public List<Book> findAllAndIndex() {
+    public void findAllAndIndex() {
         for (Book book : BOOK_LIST) {
             IndexService index = IndexService.getInstance();
             index.addToIndex(book);
         }
-
-        return BOOK_LIST;
     }
 
     public Book saveBook(Book book) throws BookAlreadyExistsException {
