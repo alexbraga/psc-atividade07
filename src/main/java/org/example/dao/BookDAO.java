@@ -12,7 +12,18 @@ public class BookDAO {
     public List<Book> findAll() {
         List<Book> bookList = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+        File file = new File(FILE_NAME);
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File '" + FILE_NAME + "' created.");
+                }
+            } catch (IOException e) {
+                System.err.println("Error initializing file: " + e.getMessage());
+            }
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
