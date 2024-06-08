@@ -53,7 +53,7 @@ public class BookService {
 
     public List<Book> getAll() throws BookNotFoundException {
         if (BOOK_LIST.isEmpty()) {
-            throw new BookNotFoundException("The 'books.txt' file is empty");
+            throw new BookNotFoundException("The 'books.txt' file is empty. Make sure you add some books first");
         }
 
         return BOOK_LIST;
