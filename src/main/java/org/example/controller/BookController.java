@@ -6,12 +6,13 @@ import org.example.model.Book;
 import org.example.service.BookService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BookController {
-    private BookService bookService;
+    private final BookService BOOK_SERVICE;
 
     public BookController(BookService bookService) {
-        this.bookService = bookService;
+        this.BOOK_SERVICE = bookService;
     }
 
     public Book saveBook(Book book) throws BookAlreadyExistsException, BookNotFoundException {
@@ -21,15 +22,19 @@ public class BookController {
             throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
         }
 
-        return bookService.saveBook(book);
+        return BOOK_SERVICE.saveBook(book);
     }
 
     public List<Book> getAll() throws BookNotFoundException {
-        return bookService.getAll();
+        return BOOK_SERVICE.getAll();
     }
 
     public List<Book> findBooks(String searchQuery) throws BookNotFoundException {
-        return bookService.findBooks(searchQuery);
+        return BOOK_SERVICE.findBooks(searchQuery);
+    }
+
+    public Optional<Book> findByISBN(String isbn) throws BookNotFoundException {
+        return BOOK_SERVICE.findByISBN(isbn);
     }
 
     public Book updateBook(String isbn, Book updatedBook) throws BookNotFoundException {
@@ -44,7 +49,7 @@ public class BookController {
             throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
         }
 
-        return bookService.update(isbn, updatedBook);
+        return BOOK_SERVICE.update(isbn, updatedBook);
     }
 
     public void deleteBook(String isbn) throws BookNotFoundException {
@@ -58,6 +63,6 @@ public class BookController {
             throw new IllegalArgumentException("ISBN-13 must have exactly 13 digits");
         }
 
-        bookService.delete(isbn);
+        BOOK_SERVICE.delete(isbn);
     }
 }
