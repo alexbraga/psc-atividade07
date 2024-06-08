@@ -31,8 +31,8 @@ public class BookService {
         return BOOK_LIST;
     }
 
-    public Book saveBook(Book book) throws BookAlreadyExistsException, BookNotFoundException {
-        if (findByISBN(book.getIsbn13()).isPresent()) {
+    public Book saveBook(Book book) throws BookAlreadyExistsException {
+        if (existsByISBN(book.getIsbn13())) {
             throw new BookAlreadyExistsException("Conflict: ISBN already in use!");
         }
 
@@ -79,6 +79,13 @@ public class BookService {
         }
 
         return foundBook;
+    }
+
+    public boolean existsByISBN(String isbn) {
+        IndexService index = IndexService.getInstance();
+        Optional<Book> foundBook = index.findByISBN(isbn);
+
+        return foundBook.isPresent();
     }
 
     public Book update(String isbn, Book updatedBook) throws BookNotFoundException {
