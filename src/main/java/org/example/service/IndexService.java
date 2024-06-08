@@ -27,10 +27,6 @@ public class IndexService {
         return instance;
     }
 
-    public Map<String, List<Book>> getINDEX() {
-        return INDEX;
-    }
-
     public void addToIndex(Book book) {
         // Split the title, author, publisher and genre into individual words
         String[] titleWords = book.getTitle().toLowerCase().split("\\s+");
